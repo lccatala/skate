@@ -1,4 +1,5 @@
 mod dom;
+mod html;
 use std::{collections::HashMap};
 
 use crate::dom::{elem, text, comment};
