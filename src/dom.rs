@@ -1,4 +1,4 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 
 pub struct Node {
     // Data common to all nodes
@@ -17,7 +17,7 @@ struct ElementData {
     attrs: AttrMap,
 }
 
-type AttrMap = HashMap<String, String>;
+pub type AttrMap = HashMap<String, String>;
 
 pub fn text(data: String) -> Node {
     Node {children: Vec::new(), node_type: NodeType::Text(data)}
