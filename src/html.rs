@@ -53,7 +53,7 @@ impl Parser {
     }
 
     // Parse a tag or attribute name
-    fn consume_name(&mut self) -> String {
+    fn parse_name(&mut self) -> String {
         self.consume_while(|c| matches!(c, 'a'..='z' | 'A'..='Z' | '0'..='9'))
     }
 
@@ -67,9 +67,13 @@ impl Parser {
         }
     }
 
+    fn parse_text(&mut self) -> dom::Node {
+        dom::text(self.consume_while(|c| c != '<'))
+    }
+
     // Parse a text node
     // In my toy version of HTML, a text node can contain any character except <
-    fn parse_text(&mut self) -> dom::Node {
+    fn parse_element(&mut self) -> dom::Node {
         // Opening tag
         self.expect("<");
         let tag_name = self.parse_name();
@@ -81,7 +85,7 @@ impl Parser {
 
         // Closing tag
         self.expect("</");
-        self.expect(tag_name);
+        self.expect(&tag_name);
         self.expect(">");
 
         return dom::elem(tag_name, attrs, children);
