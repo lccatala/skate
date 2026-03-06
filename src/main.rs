@@ -1,5 +1,6 @@
 mod dom;
 mod html;
+mod css;
 use std::{collections::HashMap};
 
 use crate::dom::{elem, text, comment};
@@ -45,4 +46,16 @@ fn main() {
     println!("Dom tree:");
     println!();
     dom_tree.prettty_print();
+
+    let stylesheet = css::parse("h1 {color: #ff0000; margin: 10px; }".to_string());
+    println!("\nStylesheet rules: {}", stylesheet.rules.len());
+    for rule in &stylesheet.rules {
+        for selector in &rule.selectors {
+            let css::Selector::Simple(s) = selector;
+            println!("Selector: {:?}", s.tag_name);
+        }
+        for decl in &rule.declarations {
+            println!("  Declaration: {}", decl.name);
+        }
+    }
 }
