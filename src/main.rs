@@ -1,6 +1,7 @@
 mod dom;
 mod html;
 mod css;
+mod style;
 use std::{collections::HashMap};
 
 use crate::dom::{elem, text, comment};
@@ -57,5 +58,11 @@ fn main() {
         for decl in &rule.declarations {
             println!("  Declaration: {}", decl.name);
         }
+    }
+
+    let styled = style::style_tree(&dom_tree, &stylesheet);
+    println!("\nStyle tree root has {} children", styled.children.len());
+    for child in styled.children {
+        println!("  child has {} declarations", child.specified_values.len())
     }
 }

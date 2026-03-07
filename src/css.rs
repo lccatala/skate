@@ -32,16 +32,19 @@ pub struct Declaration {
 }
 
 // I will only support a small subset of all the possible CSS value types
+#[derive(Debug, Clone)]
 pub enum Value {
     Keyword(String),
     Length(f32, Unit),
     ColorValue(Color),
 }
 
+#[derive(Debug, Clone)]
 pub enum Unit {
     Px,
 }
 
+#[derive(Debug, Clone)]
 pub struct Color {
     pub r: u8, pub g: u8, pub b: u8, pub a: u8
 }
